@@ -1,6 +1,14 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import dotenv from "dotenv";
+import path from "path";
+import cors from "cors";
+
+// Force load .env with absolute path
+dotenv.config({ path: path.resolve(__dirname, ".env") });
+
+// Confirm environment variables are loaded
+console.log("OMDB_API_KEY:", process.env.OMDB_API_KEY);
 
 // Create Express application
 const app = express();
@@ -8,6 +16,9 @@ const app = express();
 // Middleware for parsing JSON and URL-encoded bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// CORS setup
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Request logging middleware
 app.use((req, res, next) => {
@@ -36,11 +47,16 @@ app.use((req, res, next) => {
         logLine = logLine.slice(0, 79) + "…";
       }
 
-      log(logLine);
+      console.log(logLine);
     }
   });
 
   next();
+});
+
+// Test route to verify server and frontend connection
+app.get("/api/test", (_req, res) => {
+  res.json({ message: "API is working correctly!" });
 });
 
 (async () => {
@@ -53,23 +69,19 @@ app.use((req, res, next) => {
     const message = err.message || "Internal Server Error";
 
     res.status(status).json({ message });
-    throw err;
+    console.error(err);
   });
-
-  // Setup Vite in development or serve static files in production
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
-  }
 
   // Start the server
-  const port = 5000;
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  const port = process.env.PORT || 5000;
+  server.listen(
+    {
+      port,
+      host: "0.0.0.0",
+      reusePort: true,
+    },
+    () => {
+      console.log(`Serving on port ${port}`);
+    }
+  );
 })();

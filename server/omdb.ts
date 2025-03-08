@@ -1,4 +1,10 @@
-import { Movie } from "../shared/schema";
+type Movie = {
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
+};
 
 if (!process.env.OMDB_API_KEY) {
   throw new Error("OMDB_API_KEY environment variable is required");

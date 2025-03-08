@@ -16,7 +16,7 @@ import { createServer, type Server } from "http";
 import { setupAuth } from "./auth";
 import { storage } from "./storage";
 import { searchMovies, getMovieById } from "./omdb";
-import { insertWatchlistSchema } from "@shared/schema";
+import { insertWatchlistSchema } from "../shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   setupAuth(app);

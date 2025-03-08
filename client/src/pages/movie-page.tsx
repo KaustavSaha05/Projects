@@ -107,3 +107,10 @@ export default function MoviePage() {
     </div>
   );
 }
+
+{
+  "compilerOptions": {
+    // other options
+    "jsx": "react"
+  }
+}

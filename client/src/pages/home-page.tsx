@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../hooks/use-auth";
-import { Movie, Watchlist } from "@shared/schema";
+import { Movie, Watchlist } from "@/shared/schema";
 import { MovieGrid } from "../components/movie-grid";
 import { SearchBar } from "../components/search-bar";
 import { useState } from "react";

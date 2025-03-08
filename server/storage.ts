@@ -1,4 +1,4 @@
-import { User, InsertUser, Watchlist } from "@shared/schema";
+import { User, InsertUser, Watchlist } from "../shared/schema";
 import session from "express-session";
 import createMemoryStore from "memorystore";
 

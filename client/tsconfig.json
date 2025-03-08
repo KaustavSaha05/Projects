@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "jsx": "react",
+      "module": "CommonJS",
+      "target": "ESNext",
+      "moduleResolution": "node",
+      "rootDir": "./",
+      "outDir": "./dist",
+      "esModuleInterop": true,
+      "allowJs": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src/**/*", "vite.config.ts"]
+  }
+  
