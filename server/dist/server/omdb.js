@@ -7,7 +7,7 @@ exports.searchMovies = searchMovies;
 exports.getMovieById = getMovieById;
 const dotenv_1 = __importDefault(require("dotenv"));
 const path = require('path');
-dotenv_1.default.config({ path: path.resolve(__dirname, '../.env') });
+dotenv_1.default.config({ path: path.resolve(__dirname, ".env") });
 // Log the API key to check if it's loading correctly
 console.log("OMDB_API_KEY:", process.env.OMDB_API_KEY);
 const OMDB_API_KEY = process.env.OMDB_API_KEY;

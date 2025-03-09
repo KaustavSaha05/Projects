@@ -9,11 +9,11 @@ async function throwIfResNotOk(res: Response) {
 }
 
 // Generic API request function for making HTTP requests
-export async function apiRequest(
+export async function apiRequest<T = any>(
   method: string,
   url: string,
   data?: unknown | undefined,
-): Promise<Response> {
+): Promise<T> {
   const res = await fetch(url, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
@@ -22,7 +22,8 @@ export async function apiRequest(
   });
 
   await throwIfResNotOk(res);
-  return res;
+  // Return the parsed JSON response
+  return await res.json();
 }
 
 // Type for handling unauthorized responses

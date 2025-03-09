@@ -1,11 +1,12 @@
-import React, { createContext, ReactNode, useContext } from "react";
+
+import { createContext, ReactNode, useContext } from "react";
 import {
   useQuery,
   useMutation,
   UseMutationResult,
 } from "@tanstack/react-query";
-import { insertUserSchema, User as SelectUser, InsertUser } from "@/path/to/schema";
-import { getQueryFn, apiRequest, queryClient } from "@/lib/query-client";
+import { insertUserSchema, User as SelectUser, InsertUser } from "../../shared/schema";
+import { getQueryFn, apiRequest, queryClient } from "../lib/queryClient";
 import { useToast } from "../hooks/use-toast";
 
 type AuthContextType = {
@@ -20,46 +21,65 @@ type AuthContextType = {
 type LoginData = Pick<InsertUser, "username" | "password">;
 
 export const AuthContext = createContext<AuthContextType | null>(null);
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast();
   const {
     data: user,
     error,
     isLoading,
-  } = useQuery<SelectUser | undefined, Error>({
+  } = useQuery<SelectUser | null, Error>({
     queryKey: ["/api/user"],
     queryFn: getQueryFn({ on401: "returnNull" }),
   });
 
   const loginMutation = useMutation({
-    mutationFn: async (credentials: LoginData) => {
-      const res = await apiRequest("POST", "/api/login", credentials);
-      return await res.json();
+    mutationFn: async (data: LoginData) => {
+      try {
+        return await apiRequest<SelectUser>("POST", "/api/login", data);
+      } catch (error) {
+        console.error("Login error:", error);
+        throw error;
+      }
     },
-    onSuccess: (user: SelectUser) => {
+    onSuccess: (user) => {
       queryClient.setQueryData(["/api/user"], user);
+      toast({
+        title: "Success",
+        description: "Logged in successfully",
+      });
     },
     onError: (error: Error) => {
+      console.error("Login mutation error:", error);
       toast({
         title: "Login failed",
-        description: error.message,
+        description: error.message || "Invalid username or password",
         variant: "destructive",
       });
     },
   });
 
   const registerMutation = useMutation({
-    mutationFn: async (credentials: InsertUser) => {
-      const res = await apiRequest("POST", "/api/register", credentials);
-      return await res.json();
+    mutationFn: async (data: InsertUser) => {
+      try {
+        return await apiRequest<SelectUser>("POST", "/api/register", data);
+      } catch (error) {
+        console.error("Registration error:", error);
+        throw error;
+      }
     },
-    onSuccess: (user: SelectUser) => {
+    onSuccess: (user) => {
       queryClient.setQueryData(["/api/user"], user);
+      toast({
+        title: "Success",
+        description: "Registered successfully",
+      });
     },
     onError: (error: Error) => {
+      console.error("Registration mutation error:", error);
       toast({
         title: "Registration failed",
-        description: error.message,
+        description: error.message || "Unable to register user",
         variant: "destructive",
       });
     },

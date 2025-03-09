@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 const path = require('path');
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 // Log the API key to check if it's loading correctly
 console.log("OMDB_API_KEY:", process.env.OMDB_API_KEY);

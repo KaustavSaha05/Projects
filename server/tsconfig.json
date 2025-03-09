@@ -1,16 +1,15 @@
 {
-    "compilerOptions": {
-      "target": "esnext",
-      "module": "Commonjs",
-      "rootDir": "../",            // Your TypeScript files
-      "outDir": "./dist",               // Compiled JavaScript output
-      "strict": true,
-      "esModuleInterop": true,
-      "allowJs": true,
-      "skipLibCheck": true
-    },
-    "include": ["../**/*.ts", "../shared/**/*.ts"],
-    "exclude": ["./dist"]
-  }
-  
-  
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "../",
+    "module": "CommonJS",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "allowJs": true,
+    "resolveJsonModule": true
+  },
+  "include": ["*.ts", "../shared/**/*"]
+}

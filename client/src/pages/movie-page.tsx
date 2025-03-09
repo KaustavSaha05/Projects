@@ -1,14 +1,14 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Movie } from "@shared/schema";
+import { Movie } from "@/shared/schema";
 import { useRoute } from "wouter";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { Loader2, Plus, Check } from "lucide-react";
 import { apiRequest, queryClient } from "../lib/queryClient";
 import React from "react";
 
 export default function MoviePage() {
-  const [, params] = useRoute("/movie/:id");
-  const movieId = params?.id;
+  const [, params] = useRoute<{ id: string }>("/movie/:id");
+  const movieId = params ? params.id : null;
 
   const { data: movie, isLoading } = useQuery<Movie>({
     queryKey: [`/api/movies/${movieId}`],
@@ -106,11 +106,4 @@ export default function MoviePage() {
       </div>
     </div>
   );
-}
-
-{
-  "compilerOptions": {
-    // other options
-    "jsx": "react"
-  }
 }

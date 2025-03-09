@@ -1,11 +1,17 @@
+import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 
 // Force load .env with absolute path
-dotenv.config({ path: path.resolve(__dirname, ".env") });
+const result = dotenv.config({ path: __dirname + '/../.env' });
+
+if (result.error) {
+  console.error('Dotenv failed to load:', result.error);
+} else {
+  console.log('Dotenv loaded:', result.parsed);
+}
 
 // Confirm environment variables are loaded
 console.log("OMDB_API_KEY:", process.env.OMDB_API_KEY);

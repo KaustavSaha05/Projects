@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "../components/ui/input";
 import { Search } from "lucide-react";
 import { useState } from "react";
-import { useDebounce } from "@/hooks/use-debounce";
+import { useDebounce } from "../hooks/use-debounce";
 import React from "react";
 
 export function SearchBar({ onSearch }: { onSearch: (query: string) => void }) {

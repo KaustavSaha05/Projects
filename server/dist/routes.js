@@ -5,7 +5,7 @@ const http_1 = require("http");
 const auth_1 = require("./auth");
 const storage_1 = require("./storage");
 const omdb_1 = require("./omdb");
-const schema_1 = require("../shared/schema");
+const schema_1 = require("../../shared/schema");
 async function registerRoutes(app) {
     (0, auth_1.setupAuth)(app);
     app.get("/api/movies/search", async (req, res) => {

@@ -1,4 +1,4 @@
-import { Movie } from "@shared/schema";
+import { Movie } from "@/shared/schema";
 import { MovieCard } from "./movie-card";
 import React from "react";
 

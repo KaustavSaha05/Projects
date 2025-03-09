@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.insertWatchlistSchema = exports.insertUserSchema = exports.watchlist = exports.users = void 0;
 const pg_core_1 = require("drizzle-orm/pg-core");
 const drizzle_zod_1 = require("drizzle-zod");
+const zod_1 = require("zod");
 exports.users = (0, pg_core_1.pgTable)("users", {
     id: (0, pg_core_1.serial)("id").primaryKey(),
     username: (0, pg_core_1.text)("username").notNull().unique(),
@@ -15,8 +16,8 @@ exports.watchlist = (0, pg_core_1.pgTable)("watchlist", {
     movieId: (0, pg_core_1.text)("movie_id").notNull(),
     addedAt: (0, pg_core_1.text)("added_at").notNull(),
 });
-exports.insertUserSchema = (0, drizzle_zod_1.createInsertSchema)(exports.users).pick({
-    username: true,
-    password: true,
+exports.insertUserSchema = zod_1.z.object({
+    username: zod_1.z.string().min(3),
+    password: zod_1.z.string().min(6),
 });
 exports.insertWatchlistSchema = (0, drizzle_zod_1.createInsertSchema)(exports.watchlist);

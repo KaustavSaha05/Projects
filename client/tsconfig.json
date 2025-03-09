@@ -1,16 +1,25 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "module": "CommonJS",
+    "jsx": "react-jsx",
+    "module": "ESNext", // Use ESNext for Vite compatibility
     "target": "ESNext",
     "moduleResolution": "node",
-    "rootDir": "./",
+    "rootDir": "./src", // Ensure root is your src directory
     "outDir": "./dist",
     "esModuleInterop": true,
     "allowJs": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src", // Important for cleaner imports
+    "paths": {           // Resolve paths for shared directory if needed
+      "@shared/*": ["../shared/*"],
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"]
+    }
   },
-  "include": ["src/**/*", "vite.config.ts"]
+  "include": ["src/**/*", "../shared/**/*", "vite.config.ts", "../shared"],
+  "exclude": ["node_modules", "dist"]
 }
+

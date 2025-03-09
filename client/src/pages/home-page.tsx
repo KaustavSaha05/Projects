@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../hooks/use-auth";
-import { Movie, Watchlist } from "@/shared/schema";
+import { Movie, Watchlist } from "../../../shared/schema";
 import { MovieGrid } from "../components/movie-grid";
 import { SearchBar } from "../components/search-bar";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import React from "react";
 

@@ -3,13 +3,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const routes_1 = require("./routes");
-const dotenv_1 = __importDefault(require("dotenv"));
-const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 // Force load .env with absolute path
-dotenv_1.default.config({ path: path_1.default.resolve(__dirname, ".env") });
+const result = dotenv_1.default.config({ path: __dirname + '/../.env' });
+if (result.error) {
+    console.error('Dotenv failed to load:', result.error);
+}
+else {
+    console.log('Dotenv loaded:', result.parsed);
+}
 // Confirm environment variables are loaded
 console.log("OMDB_API_KEY:", process.env.OMDB_API_KEY);
 // Create Express application
