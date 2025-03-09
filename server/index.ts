@@ -1,4 +1,4 @@
-import express, { type Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import dotenv from "dotenv";
 import path from "path";
@@ -24,7 +24,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+  let capturedJsonResponse: undefined = undefined;
 
   // Capture JSON responses for logging
   const originalResJson = res.json;
@@ -64,7 +64,7 @@ app.get("/api/test", (_req, res) => {
   const server = await registerRoutes(app);
 
   // Global error handling middleware
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: { status: any; statusCode: any; message: string; }, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
